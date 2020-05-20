@@ -2,6 +2,11 @@
   "name": "trit-jitsi-inviter",
   "description": "Website for generating tokens",
   "author": "kalukali",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KaluKali/trit-jitsi-inviter.git"
+  },
+  "license": "ISC",
   "scripts": {
     "start": "webpack-dev-server --mode development --open",
     "dev": "webpack --mode development",
