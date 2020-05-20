@@ -24,13 +24,20 @@ class InvitePage extends React.Component {
           <div className='group'>
             <label>Имя:</label>
             <span>{this.props.username}</span><br/>
+            <br/>
+            <label>Учительская ссылка</label><br/>
+            <input required type='text' readOnly onClick={this.handleSelect} value={`https://bbb.trit.biz/${this.props.room}?jwt=${this.props.teacher}`}/><br/>
+            <label>Студенческая ссылка</label><br/>
+            <input required type='text' readOnly onClick={this.handleSelect} value={`https://bbb.trit.biz/${this.props.room}?jwt=${this.props.student}`}/>
           </div>
-          <a className="link-a" href={`https://bbb.trit.biz/${this.props.room}?jwt=${this.props.teacher}`}>Учительская ссылка</a><br/>
-          <a className="link-a" href={`https://bbb.trit.biz/${this.props.room}?jwt=${this.props.student}`}>Студенческая ссылка</a>
         </div>
       </div>
     );
   }
+
+  handleSelect = (e) => {
+    e.target.select();
+  };
 
   onClickLink = () => {
     this.props.clickLink();
