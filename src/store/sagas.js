@@ -5,7 +5,6 @@ function* logInSaga({ payload }) {
   try {
     const { username, room } = payload;
     const { teacher, student } = yield call(logIn, username, room);
-    console.log('sagas');
     yield put({
       type: 'AUTHORIZATION_SUCCESS',
       payload: {

@@ -1,30 +1,29 @@
-const tritJWT = require('trit-jwt-generator');
+const axios = require('axios').default;
 
 export const logIn = (username, room) => (
-  new Promise((resolve) => { // resolve,reject
-    const serverParams = {
-      sub: 'bbb.trit.biz',
-      room,
-      aud: 'bbb.trit.biz',
-      iss: 'bbb.trit.biz',
+  new Promise((resolve, reject) => {
+    const tokens = {
+      teacher: Math.random().toString(36).slice(2),
+      student: Math.random().toString(36).slice(2)
     };
-    const date = new Date();
-    date.setHours(date.getHours() + 2);
-    resolve({
-      teacher: tritJWT.generateJWT(serverParams, 'test', date, {
-        user: {
-          name: username,
+    const data = new Date();
+    data.setHours(data.getHours() + 2);
+    axios.post('http://127.0.0.1:3000/token',
+      {
+        content: {
+          Teacher: tokens.teacher,
+          Student: tokens.student,
+          Alive: data,
+          Moderator: username,
+          Room: room
+        },
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
         }
-      }),
-      student: tritJWT.generateJWT(serverParams, 'test', date, {
-        user: {
-          name: '',
-        }
-      })
+      }).catch(err => {
+      console.error(err);
+      reject(err);
     });
-    // if (username !== '' && room !== '') {
-    // } else {
-    //   reject(new Error('Incorrect username or room.'));
-    // }
+    resolve(tokens);
   })
 );

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { routes } from './routes';
 import Authorization from './hoc/authorization';
 
+
 const App = () => {
   const renderSwitch = () => (
     <Switch>

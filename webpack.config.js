@@ -2,13 +2,15 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+
 module.exports = {
-  devtool: 'inline-source-map',
   target: 'web',
-  entry: { main: './src/index.js' },
+  entry: {
+    main: './src/index.js',
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    filename: '[name].js',
     publicPath: '/',
   },
   module: {
@@ -40,6 +42,13 @@ module.exports = {
         }),
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      },
+      {
         test: [/\.js$/, /\.jsx$/],
         exclude: /node_modules/,
         loader: 'eslint-loader',
@@ -48,9 +57,11 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    host: '127.0.0.1',
+    port: 8080
   },
   plugins: [
-    new ExtractTextPlugin({ filename: 'style.css' }),
+    new ExtractTextPlugin({ filename: '[name].css' }),
     new HtmlWebpackPlugin({
       inject: false,
       hash: true,
